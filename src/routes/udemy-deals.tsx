@@ -465,69 +465,6 @@ function UdemyDealsPage() {
               </p>
             </div>
           </section>
-
-          <article className="mx-auto mt-20 max-w-3xl prose prose-neutral dark:prose-invert">
-            <h2>About Udemy Coupons & Promo Codes</h2>
-            <p>
-              Udemy is one of the world's largest online learning marketplaces,
-              offering over 200,000 courses across technology, business, design,
-              marketing, and personal development. With new promotions launching
-              every week, the right coupon code can cut the price of a course by
-              as much as 80% — turning a $99 course into a $10 investment.
-            </p>
-
-            <h3>How to use a Udemy coupon</h3>
-            <ol>
-              <li>
-                Pick a deal above and click <strong>See Code</strong> or{" "}
-                <strong>Get Deal</strong>.
-              </li>
-              <li>
-                You'll be redirected to Udemy with the discount applied
-                automatically, or with a code to paste at checkout.
-              </li>
-              <li>
-                Add the course to your cart and complete checkout to lock in the
-                price — Udemy courses come with lifetime access.
-              </li>
-            </ol>
-
-            <h3>Tips to save more on Udemy</h3>
-            <ul>
-              <li>
-                <strong>Check our page first.</strong> We refresh deals
-                regularly so you always see currently valid offers.
-              </li>
-              <li>
-                <strong>Sign in before applying.</strong> Some promotions are
-                only visible to logged-in accounts.
-              </li>
-              <li>
-                <strong>Use the 30-day refund window.</strong> If a course isn't
-                what you expected, Udemy offers a no-questions refund.
-              </li>
-              <li>
-                <strong>Consider Udemy Personal Plan.</strong> For learners who
-                take 3+ courses a year, the annual subscription often beats
-                per-course pricing.
-              </li>
-            </ul>
-
-            <h3>Best categories for deals</h3>
-            <p>
-              The deepest discounts usually appear in trending categories:
-              Artificial Intelligence, Python and web development, data science,
-              cybersecurity, and digital marketing. Whether you're upskilling
-              for a new role or exploring a hobby, there's almost always a flash
-              sale waiting.
-            </p>
-
-            <p className="text-sm text-muted-foreground">
-              Disclosure: We may earn a commission when you buy through links on
-              this page. This helps us keep curating the best learning deals at
-              no extra cost to you.
-            </p>
-          </article>
         </Section>
       </main>
       <Footer />
