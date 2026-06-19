@@ -289,6 +289,183 @@ function UdemyDealsPage() {
             ))}
           </div>
 
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold mb-4">
+              Browse Deals by Category
+            </h2>
+
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-2">AI & ChatGPT Courses</h3>
+              <p className="text-muted-foreground">
+                ChatGPT and prompt engineering remain the fastest-growing
+                category on Udemy. These courses cover practical prompting
+                frameworks, AI automation with tools like n8n and Zapier, and
+                building basic AI agents — no coding background required for
+                most tracks. See the{" "}
+                <a href="#chatgpt-deal" className="underline">
+                  ChatGPT & Prompt Engineering deal
+                </a>{" "}
+                above for current pricing.
+              </p>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-2">
+                Programming & Development
+              </h3>
+              <p className="text-muted-foreground">
+                Python, JavaScript, React, and Next.js bundles consistently see
+                the deepest discounts, often 85% off list price. These courses
+                suit beginners through intermediate developers looking to add a
+                framework or language to their resume. See the{" "}
+                <a href="#coding-deal" className="underline">
+                  Coding & Development deal
+                </a>{" "}
+                above.
+              </p>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-2">
+                Data Science & Analytics
+              </h3>
+              <p className="text-muted-foreground">
+                SQL, machine learning, and data visualization courses are
+                bundled frequently with AI-adjacent content, since the skill
+                sets overlap heavily. Good entry point for analysts moving into
+                data science roles. See the{" "}
+                <a href="#data-science-deal" className="underline">
+                  Data Science deal
+                </a>{" "}
+                above.
+              </p>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-2">Marketing & Growth</h3>
+              <p className="text-muted-foreground">
+                SEO, Google Ads, Meta Ads, and email marketing courses round out
+                the most-discounted category after AI and programming. Useful
+                for freelancers building a service offering, not just employees.
+                See the{" "}
+                <a href="#marketing-deal" className="underline">
+                  Marketing deal
+                </a>{" "}
+                above.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-medium mb-2">
+                Photography & Creative
+              </h3>
+              <p className="text-muted-foreground">
+                Camera fundamentals, editing, and lighting courses see
+                consistent 80%+ discounts, especially around quarterly Udemy
+                sales. See the{" "}
+                <a href="#photography-deal" className="underline">
+                  Photography deal
+                </a>{" "}
+                above.
+              </p>
+            </div>
+          </section>
+
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold mb-2">
+              Why Are Udemy Courses Always on Sale?
+            </h2>
+            <p className="mb-4 text-muted-foreground">
+              Udemy's list prices are rarely the price anyone actually pays. The
+              platform runs sales nearly every week, and instructors set high
+              list prices specifically because steep discounts drive more
+              enrollments. This isn't a markup trick aimed at you — it's Udemy's
+              pricing model by design, and it's been this way for years.
+            </p>
+            <p className="text-muted-foreground">
+              What changes week to week is which courses get the deepest cuts,
+              and which categories Udemy prioritizes in its promotions (often
+              tied to trending search demand — right now, that's AI and
+              ChatGPT-related content). That's why checking a current deals
+              page, rather than searching Udemy directly, usually gets you a
+              better price.
+            </p>
+          </section>
+
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold mb-4">
+              Frequently Asked Questions
+            </h2>
+
+            <div className="mb-4">
+              <h3 className="font-medium">Do Udemy coupons expire?</h3>
+              <p className="text-muted-foreground">
+                Yes. Most Udemy coupon codes are valid for a few days to two
+                weeks. We update this page regularly and remove expired codes —
+                but if a code fails at checkout, the course is very likely still
+                on sale at a similar price; just proceed without the code.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <h3 className="font-medium">
+                Can I stack multiple Udemy coupons?
+              </h3>
+              <p className="text-muted-foreground">
+                No. Udemy applies one discount code per purchase. If a course is
+                already on sale, applying a different code may not lower the
+                price further.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <h3 className="font-medium">
+                Is the Udemy Personal Plan worth it over individual courses?
+              </h3>
+              <p className="text-muted-foreground">
+                If you plan to take 3 or more courses a year, the subscription
+                plan often costs less than buying each course individually at
+                sale price. For one or two courses, per-course purchases with a
+                coupon are usually cheaper.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <h3 className="font-medium">
+                Why does the price change between when I click and when I check
+                out?
+              </h3>
+              <p className="text-muted-foreground">
+                Udemy prices can shift based on region, login status, and active
+                promotions. The price shown when you click "Get Deal" reflects
+                the offer at that moment — always confirm the final price at
+                checkout before paying.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <h3 className="font-medium">
+                Are these coupons valid worldwide?
+              </h3>
+              <p className="text-muted-foreground">
+                Most Udemy promotions apply globally, though Udemy does adjust
+                pricing by region (purchasing power parity). The percentage
+                discount usually still applies regardless of your country.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-medium">
+                Do coupons work on courses already in my cart?
+              </h3>
+              <p className="text-muted-foreground">
+                Yes, as long as the code is applied before completing checkout.
+                Adding a course to your cart doesn't lock in a price until
+                payment.
+              </p>
+            </div>
+          </section>
+
           <article className="mx-auto mt-20 max-w-3xl prose prose-neutral dark:prose-invert">
             <h2>About Udemy Coupons & Promo Codes</h2>
             <p>
