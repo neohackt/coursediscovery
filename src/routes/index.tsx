@@ -52,6 +52,49 @@ export const Route = createFileRoute("/")({
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "Are these courses beginner friendly?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes. Most resources start from the basics and ramp up step by step — no prior AI experience required.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Do I need coding experience?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "No coding needed for most paths. Developer-focused tracks are clearly marked if you want to go deeper.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Can I learn at my own pace?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Absolutely. All featured resources are self-paced with lifetime access, so you can revisit anytime.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Are certificates available?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes — many of the recommended courses include a completion certificate you can share on LinkedIn.",
+              },
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: Index,
 });
