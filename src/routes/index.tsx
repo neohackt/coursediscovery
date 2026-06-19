@@ -15,25 +15,25 @@ import { StickyCTA } from "@/components/StickyCTA";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Course Discovery | Learn AI Skills Online" },
+      { title: "Udemy AI Course Discounts 2026 | Up to 85% Off" },
       {
         name: "description",
         content:
-          "Discover curated AI learning resources covering ChatGPT, Prompt Engineering, AI Automation, Generative AI and more.",
+          "Verified Udemy AI course discounts updated daily. Save up to 85% on ChatGPT, AI Automation, Prompt Engineering courses. Browse deals now.",
       },
       {
         name: "keywords",
         content:
-          "AI Courses, ChatGPT Courses, Prompt Engineering, AI Automation, Learn AI, Generative AI",
+          "AI Courses, ChatGPT Courses, Prompt Engineering, AI Automation, Learn AI, Generative AI, Udemy Discounts",
       },
       {
         property: "og:title",
-        content: "Course Discovery | Learn AI Skills Online",
+        content: "Udemy AI Course Discounts 2026 | Up to 85% Off",
       },
       {
         property: "og:description",
         content:
-          "Curated AI learning resources for beginners, marketers, developers and freelancers.",
+          "Verified Udemy AI course discounts updated daily. Save up to 85% on ChatGPT, AI Automation, Prompt Engineering courses. Browse deals now.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
