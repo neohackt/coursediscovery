@@ -178,6 +178,106 @@ function UdemyDealsPage() {
             ))}
           </div>
 
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold mb-2">
+              How we verify Udemy coupons
+            </h2>
+            <p className="mb-4 text-muted-foreground">
+              Udemy runs near-constant sales, which makes it easy to publish
+              stale or fake codes. We check every offer on this page manually
+              and mark the verification date below. If a code stops working, we
+              pull it — not leave it live for clicks.
+            </p>
+            <p className="text-sm font-medium">
+              Last verified: June 7, 2026 <br />
+              Reviewed by: CourseDiscovery Team
+            </p>
+          </section>
+
+          <section className="mb-10 overflow-x-auto">
+            <h2 className="text-xl font-semibold mb-4">Deals Summary</h2>
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b text-left">
+                  <th className="py-2 pr-4">Deal</th>
+                  <th className="py-2 pr-4">Category</th>
+                  <th className="py-2 pr-4">Discount</th>
+                  <th className="py-2 pr-4">Best For</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b">
+                  <td className="py-2 pr-4">
+                    Google AI Essentials + Free Google AI Pro (3mo)
+                  </td>
+                  <td className="py-2 pr-4">AI / Generative AI</td>
+                  <td className="py-2 pr-4">Free Pro access</td>
+                  <td className="py-2 pr-4">Complete beginners</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 pr-4">Udemy Best-Sellers Bundle</td>
+                  <td className="py-2 pr-4">AI / Digital Marketing</td>
+                  <td className="py-2 pr-4">85% off</td>
+                  <td className="py-2 pr-4">
+                    Browsers wanting top-rated picks
+                  </td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 pr-4">Professional Development Sale</td>
+                  <td className="py-2 pr-4">Career / Business</td>
+                  <td className="py-2 pr-4">80% off</td>
+                  <td className="py-2 pr-4">Career switchers</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 pr-4">AI & Tech Training</td>
+                  <td className="py-2 pr-4">AI / Technology</td>
+                  <td className="py-2 pr-4">35% off</td>
+                  <td className="py-2 pr-4">Working professionals</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 pr-4">
+                    Top AI Courses (ChatGPT, Prompting, Automation)
+                  </td>
+                  <td className="py-2 pr-4">AI / Prompt Engineering</td>
+                  <td className="py-2 pr-4">Up to 85% off</td>
+                  <td className="py-2 pr-4">All levels</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 pr-4">
+                    Coding & Development (Python, JS, React, Next.js)
+                  </td>
+                  <td className="py-2 pr-4">Programming</td>
+                  <td className="py-2 pr-4">Up to 85% off</td>
+                  <td className="py-2 pr-4">Developers</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 pr-4">Data Science Pro Track</td>
+                  <td className="py-2 pr-4">Data Science / ML</td>
+                  <td className="py-2 pr-4">Big savings</td>
+                  <td className="py-2 pr-4">Analysts</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-2 pr-4">
+                    Marketing Skills (SEO, Ads, Email, Social)
+                  </td>
+                  <td className="py-2 pr-4">Marketing</td>
+                  <td className="py-2 pr-4">Big savings</td>
+                  <td className="py-2 pr-4">Marketers & freelancers</td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4">Photography</td>
+                  <td className="py-2 pr-4">Creative</td>
+                  <td className="py-2 pr-4">Up to 85% off</td>
+                  <td className="py-2 pr-4">Hobbyists</td>
+                </tr>
+              </tbody>
+            </table>
+            <p className="text-xs text-muted-foreground mt-2">
+              Discounts reflect current offers shown below and update as deals
+              refresh. Click any deal for exact checkout pricing.
+            </p>
+          </section>
+
           <div className="mx-auto mt-10 flex max-w-4xl flex-col gap-4">
             {visible.map((deal) => (
               <DealCard
