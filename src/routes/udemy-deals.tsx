@@ -10,8 +10,7 @@ export const Route = createFileRoute("/udemy-deals")({
   head: () => ({
     meta: [
       {
-        title:
-          "Udemy Coupons & Promo Codes — Verified Deals | Course Discovery",
+        title: "Udemy Coupons 2026: Verified Promo Codes (Up to 85% Off)",
       },
       {
         name: "description",
@@ -20,7 +19,7 @@ export const Route = createFileRoute("/udemy-deals")({
       },
       {
         property: "og:title",
-        content: "Udemy Coupons & Promo Codes — Verified Deals",
+        content: "Udemy Coupons 2026: Verified Promo Codes (Up to 85% Off)",
       },
       {
         property: "og:description",
