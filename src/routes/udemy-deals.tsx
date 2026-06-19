@@ -44,6 +44,7 @@ interface Deal {
   expires?: string;
   usedToday?: number;
   urgent?: boolean;
+  sectionId?: string;
 }
 
 const DEALS: Deal[] = [
@@ -88,6 +89,7 @@ const DEALS: Deal[] = [
     title: "Save Up to 85% on Top AI Courses",
     description:
       "Master ChatGPT, Prompt Engineering, AI Automation, and more with massive limited-time discounts on best-selling AI courses.",
+    sectionId: "chatgpt-deal",
   },
   {
     id: "6",
@@ -96,6 +98,7 @@ const DEALS: Deal[] = [
     title: "Learn Coding & Development for Less",
     description:
       "Save up to 85% on programming courses covering Python, JavaScript, React, Next.js, and software development.",
+    sectionId: "coding-deal",
   },
   {
     id: "7",
@@ -104,6 +107,7 @@ const DEALS: Deal[] = [
     title: "Become a Data Science Pro and Save Big",
     description:
       "Learn Data Analytics, Machine Learning, SQL, Python, and Data Visualization with limited-time course discounts.",
+    sectionId: "data-science-deal",
   },
   {
     id: "8",
@@ -112,6 +116,7 @@ const DEALS: Deal[] = [
     title: "Grow Your Marketing Skills for Less",
     description:
       "Save on SEO, Google Ads, Facebook Ads, Content Marketing, Email Marketing, and Social Media courses.",
+    sectionId: "marketing-deal",
   },
   {
     id: "9",
@@ -120,6 +125,7 @@ const DEALS: Deal[] = [
     title: "Photography Courses Up to 85% Off",
     description:
       "Improve your photography, editing, lighting, and camera skills with discounted online courses.",
+    sectionId: "photography-deal",
   },
 ];
 
@@ -499,7 +505,10 @@ function DealCard({
   };
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card transition hover:border-primary/60">
+    <div
+      id={deal.sectionId}
+      className="scroll-mt-24 overflow-hidden rounded-2xl border border-border bg-card transition hover:border-primary/60"
+    >
       <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
         <div className="grid h-24 w-full shrink-0 place-items-center rounded-xl bg-foreground px-4 text-center text-xs font-bold uppercase tracking-wide text-background sm:w-32">
           {deal.badge}
