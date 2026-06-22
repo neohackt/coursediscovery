@@ -15,7 +15,7 @@ export const Route = createFileRoute("/courses")({
       {
         name: "description",
         content:
-          "Browse curated AI courses by category — marketing, development, productivity, data, and more.",
+          "Browse 100+ AI courses by category — marketing, development, data science & more. Find your next course today.",
       },
       {
         property: "og:title",
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/courses")({
       {
         property: "og:description",
         content:
-          "Browse curated AI courses by category to find your next learning path.",
+          "Browse 100+ AI courses by category — marketing, development, data science & more. Find your next course today.",
       },
     ],
   }),
