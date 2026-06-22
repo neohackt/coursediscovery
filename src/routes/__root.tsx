@@ -81,6 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       meta: [
         { charSet: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "msvalidate.01", content: "3E78A80B02F0DFDDBEC1BE372213B968" },
         { title: "Lovable App" },
         { name: "description", content: "Lovable Generated Project" },
         { name: "author", content: "Lovable" },
