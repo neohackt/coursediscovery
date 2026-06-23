@@ -1,11 +1,13 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Clock, Tag, Copy, Check, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Section, SectionHeader } from "@/components/Section";
 import { AFFILIATE_URL } from "@/lib/constants";
 import { buildAffiliateUrl } from "@/lib/gclid";
+import { getClickCounts, incrementClickCount } from "@/lib/clicks.server";
 
 export const Route = createFileRoute("/udemy-deals")({
   head: () => ({
@@ -58,6 +60,7 @@ const DEALS: Deal[] = [
     description:
       "Learn generative AI from Google on Udemy. Get a certificate of completion and enjoy 3 months of Google AI Pro at no additional cost.",
     label: "Hot Deal",
+    usedToday: 847,
   },
   {
     id: "2",
@@ -66,6 +69,7 @@ const DEALS: Deal[] = [
     title: "Huge 85% Discount on Udemy Best-Sellers",
     description:
       "Grab the most popular courses in AI and Digital Marketing at a fraction of the cost. Upgrade your skill set today!",
+    usedToday: 612,
   },
   {
     id: "3",
@@ -74,6 +78,7 @@ const DEALS: Deal[] = [
     title: "Professional Development Sale: 80% Off Udemy",
     description:
       "Gain competitive edges in the job market. Access wide-ranging professional training courses at a massive 80% discount.",
+    usedToday: 534,
   },
   {
     id: "4",
@@ -82,6 +87,7 @@ const DEALS: Deal[] = [
     title: "Save 35% on Udemy AI & Tech Training",
     description:
       "Future-proof your career with the latest AI tools and techniques. Apply this discount to your next Udemy enrollment.",
+    usedToday: 421,
   },
   {
     id: "5",
@@ -91,6 +97,7 @@ const DEALS: Deal[] = [
     description:
       "Master ChatGPT, Prompt Engineering, AI Automation, and more with massive limited-time discounts on best-selling AI courses.",
     sectionId: "chatgpt-deal",
+    usedToday: 789,
   },
   {
     id: "6",
@@ -100,6 +107,7 @@ const DEALS: Deal[] = [
     description:
       "Save up to 85% on programming courses covering Python, JavaScript, React, Next.js, and software development.",
     sectionId: "coding-deal",
+    usedToday: 654,
   },
   {
     id: "7",
@@ -109,6 +117,7 @@ const DEALS: Deal[] = [
     description:
       "Learn Data Analytics, Machine Learning, SQL, Python, and Data Visualization with limited-time course discounts.",
     sectionId: "data-science-deal",
+    usedToday: 387,
   },
   {
     id: "8",
@@ -118,6 +127,7 @@ const DEALS: Deal[] = [
     description:
       "Save on SEO, Google Ads, Facebook Ads, Content Marketing, Email Marketing, and Social Media courses.",
     sectionId: "marketing-deal",
+    usedToday: 298,
   },
   {
     id: "9",
@@ -127,6 +137,7 @@ const DEALS: Deal[] = [
     description:
       "Improve your photography, editing, lighting, and camera skills with discounted online courses.",
     sectionId: "photography-deal",
+    usedToday: 176,
   },
 ];
 
@@ -134,17 +145,30 @@ function UdemyDealsPage() {
   const [filter, setFilter] = useState<"all" | "code" | "deal">("all");
   const [clickCounts, setClickCounts] = useState<Record<string, number>>({});
 
+  const fetchCounts = useServerFn(getClickCounts);
+  const incrementServer = useServerFn(incrementClickCount);
+
+  useEffect(() => {
+    fetchCounts().then((res) => {
+      if (res?.data) setClickCounts(res.data);
+    });
+  }, [fetchCounts]);
+
   const visible = useMemo(
     () => DEALS.filter((d) => filter === "all" || d.type === filter),
     [filter],
   );
 
-  const incrementCount = useCallback((dealId: string) => {
-    setClickCounts((prev) => ({
-      ...prev,
-      [dealId]: (prev[dealId] ?? 0) + 1,
-    }));
-  }, []);
+  const incrementCount = useCallback(
+    async (dealId: string) => {
+      setClickCounts((prev) => ({
+        ...prev,
+        [dealId]: (prev[dealId] ?? 0) + 1,
+      }));
+      await incrementServer({ data: dealId });
+    },
+    [incrementServer],
+  );
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -290,7 +314,7 @@ function UdemyDealsPage() {
               <DealCard
                 key={deal.id}
                 deal={deal}
-                usedToday={deal.usedToday ?? 0 + (clickCounts[deal.id] ?? 0)}
+                usedToday={(deal.usedToday ?? 0) + (clickCounts[deal.id] ?? 0)}
                 onDealClick={incrementCount}
               />
             ))}
