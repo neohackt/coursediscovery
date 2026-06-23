@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Section, SectionHeader } from "@/components/Section";
 import { AFFILIATE_URL } from "@/lib/constants";
+import { buildAffiliateUrl } from "@/lib/gclid";
 
 export const Route = createFileRoute("/udemy-deals")({
   head: () => ({
@@ -501,7 +502,11 @@ function DealCard({
       }
     }
     onDealClick(deal.id);
-    window.open(AFFILIATE_URL, "_blank", "noopener,nofollow,sponsored");
+    window.open(
+      buildAffiliateUrl(AFFILIATE_URL),
+      "_blank",
+      "noopener,nofollow,sponsored",
+    );
   };
 
   return (

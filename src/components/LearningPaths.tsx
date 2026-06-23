@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { learningPaths } from "@/lib/data";
 import { AFFILIATE_URL } from "@/lib/constants";
+import { buildAffiliateUrl } from "@/lib/gclid";
 import { Section, SectionHeader } from "./Section";
 
 export function LearningPaths() {
@@ -16,7 +17,7 @@ export function LearningPaths() {
         {learningPaths.map(({ icon: Icon, title, description }, i) => (
           <motion.a
             key={title}
-            href={AFFILIATE_URL}
+            href={buildAffiliateUrl(AFFILIATE_URL)}
             target="_blank"
             rel="nofollow sponsored noopener"
             initial={{ opacity: 0, y: 20 }}

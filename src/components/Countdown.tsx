@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Timer } from "lucide-react";
 import { AFFILIATE_URL } from "@/lib/constants";
+import { buildAffiliateUrl } from "@/lib/gclid";
 
 const KEY = "alh_countdown_end";
 const DURATION = 24 * 60 * 60 * 1000;
@@ -69,7 +70,7 @@ export function Countdown() {
             ))}
           </div>
           <a
-            href={AFFILIATE_URL}
+            href={buildAffiliateUrl(AFFILIATE_URL)}
             target="_blank"
             rel="nofollow sponsored noopener"
             className="mt-10 inline-flex items-center gap-2 rounded-full gradient-bg px-7 py-3.5 font-semibold text-white glow-primary transition hover:scale-[1.02]"

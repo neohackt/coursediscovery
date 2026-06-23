@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Flame } from "lucide-react";
 import { AFFILIATE_URL } from "@/lib/constants";
+import { buildAffiliateUrl } from "@/lib/gclid";
 import heroImg from "@/assets/hero-banner.png";
 
 export function Hero() {
@@ -37,7 +38,7 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
-              href={AFFILIATE_URL}
+              href={buildAffiliateUrl(AFFILIATE_URL)}
               target="_blank"
               rel="nofollow sponsored noopener"
               className="group inline-flex items-center gap-2 rounded-full gradient-bg px-7 py-3.5 font-semibold text-white glow-primary transition hover:scale-[1.02]"
@@ -55,7 +56,7 @@ export function Hero() {
         </motion.div>
 
         <motion.a
-          href={AFFILIATE_URL}
+          href={buildAffiliateUrl(AFFILIATE_URL)}
           target="_blank"
           rel="nofollow sponsored noopener"
           initial={{ opacity: 0, scale: 0.95 }}

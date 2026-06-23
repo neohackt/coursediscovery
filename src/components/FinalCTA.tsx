@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { AFFILIATE_URL } from "@/lib/constants";
+import { buildAffiliateUrl } from "@/lib/gclid";
 
 export function FinalCTA() {
   return (
@@ -13,7 +14,7 @@ export function FinalCTA() {
           that can help you stay ahead.
         </p>
         <a
-          href={AFFILIATE_URL}
+          href={buildAffiliateUrl(AFFILIATE_URL)}
           target="_blank"
           rel="nofollow sponsored noopener"
           className="mt-10 inline-flex items-center gap-2 rounded-full gradient-bg px-8 py-4 text-lg font-semibold text-white glow-primary transition hover:scale-[1.02]"

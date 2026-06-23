@@ -3,6 +3,7 @@ import { Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { ThemeToggle } from "./ThemeToggle";
 import { AFFILIATE_URL } from "@/lib/constants";
+import { buildAffiliateUrl, captureFromUrl } from "@/lib/gclid";
 
 const links = [
   { href: "/#paths", label: "Learning Paths", type: "hash" as const },
@@ -16,6 +17,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
+    captureFromUrl();
     const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -65,7 +67,7 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <a
-            href={AFFILIATE_URL}
+            href={buildAffiliateUrl(AFFILIATE_URL)}
             target="_blank"
             rel="nofollow sponsored noopener"
             className="hidden rounded-full gradient-bg px-5 py-2 text-sm font-semibold text-white transition hover:opacity-90 md:inline-flex"
