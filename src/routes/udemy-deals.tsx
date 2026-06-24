@@ -1,13 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { Clock, Tag, Copy, Check, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Section, SectionHeader } from "@/components/Section";
 import { AFFILIATE_URL } from "@/lib/constants";
 import { buildAffiliateUrl } from "@/lib/gclid";
-import { getClickCounts, incrementClickCount } from "@/lib/clicks.server";
 
 export const Route = createFileRoute("/udemy-deals")({
   head: () => ({
@@ -143,32 +141,15 @@ const DEALS: Deal[] = [
 
 function UdemyDealsPage() {
   const [filter, setFilter] = useState<"all" | "code" | "deal">("all");
-  const [clickCounts, setClickCounts] = useState<Record<string, number>>({});
-
-  const fetchCounts = useServerFn(getClickCounts);
-  const incrementServer = useServerFn(incrementClickCount);
-
-  useEffect(() => {
-    fetchCounts().then((res) => {
-      if (res?.data) setClickCounts(res.data);
-    });
-  }, [fetchCounts]);
 
   const visible = useMemo(
     () => DEALS.filter((d) => filter === "all" || d.type === filter),
     [filter],
   );
 
-  const incrementCount = useCallback(
-    async (dealId: string) => {
-      setClickCounts((prev) => ({
-        ...prev,
-        [dealId]: (prev[dealId] ?? 0) + 1,
-      }));
-      await incrementServer({ data: dealId });
-    },
-    [incrementServer],
-  );
+  const incrementCount = useCallback((_dealId: string) => {
+    // Click tracking will be re-added with server functions
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -314,7 +295,7 @@ function UdemyDealsPage() {
               <DealCard
                 key={deal.id}
                 deal={deal}
-                usedToday={(deal.usedToday ?? 0) + (clickCounts[deal.id] ?? 0)}
+                usedToday={deal.usedToday ?? 0}
                 onDealClick={incrementCount}
               />
             ))}
