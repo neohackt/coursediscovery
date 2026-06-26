@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 import { fetchPostBySlug } from "@/lib/blog/blog.functions";
+import { AFFILIATE_URL } from "@/lib/constants";
+import { buildAffiliateUrl } from "@/lib/gclid";
 import type { BlogPost } from "@/lib/blog/types";
 
 interface BlogPostLoaderData {
@@ -15,6 +17,11 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData, match }) => {
     const data = loaderData as unknown as BlogPostLoaderData | undefined;
     const post = data?.post;
+    const ogImage = post?.image
+      ? post.image.startsWith("http")
+        ? post.image
+        : `https://coursediscovery.net${post.image}`
+      : undefined;
     return {
       meta: [
         {
@@ -38,6 +45,8 @@ export const Route = createFileRoute("/blog/$slug")({
           property: "og:url",
           content: `https://coursediscovery.net${match.pathname}`,
         },
+        ...(ogImage ? [{ property: "og:image", content: ogImage }] : []),
+        { name: "twitter:card", content: "summary_large_image" },
       ],
       links: [
         {
@@ -60,6 +69,44 @@ function renderMarkdown(md: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
+  // Tables — process before other block elements
+  html = html.replace(
+    /(?:^|\n)((?:\|.+\|\n)+)/g,
+    (_match, tableBlock: string) => {
+      const rows = tableBlock.trim().split("\n");
+      if (rows.length < 2) return tableBlock;
+
+      const parseCells = (row: string) =>
+        row
+          .split("|")
+          .slice(1, -1)
+          .map((c) => c.trim());
+
+      const headerCells = parseCells(rows[0]);
+      const header = headerCells
+        .map(
+          (c) =>
+            `<th class="border border-border bg-muted px-4 py-2 text-left text-sm font-semibold text-foreground">${c}</th>`,
+        )
+        .join("");
+
+      const dataRows = rows.slice(2); // skip header + separator
+      const body = dataRows
+        .map((row) => {
+          const cells = parseCells(row);
+          return `<tr>${cells
+            .map(
+              (c) =>
+                `<td class="border border-border px-4 py-2 text-sm text-muted-foreground">${c}</td>`,
+            )
+            .join("")}</tr>`;
+        })
+        .join("");
+
+      return `\n<table class="w-full border-collapse my-6 text-sm"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>\n`;
+    },
+  );
+
   html = html.replace(
     /^### (.+)$/gm,
     '<h3 class="text-xl font-semibold text-foreground mt-8 mb-3">$1</h3>',
@@ -79,9 +126,16 @@ function renderMarkdown(md: string): string {
   );
   html = html.replace(/\*(.+?)\*/g, "<em>$1</em>");
 
+  // Links — detect affiliate URLs and add rel attributes
   html = html.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" class="text-primary hover:underline">$1</a>',
+    (_match, text: string, href: string) => {
+      const isAffiliate = href.includes("click.dealsncodes.com");
+      if (isAffiliate) {
+        return `<a href="${href}" target="_blank" rel="nofollow sponsored noopener" class="text-primary hover:underline">${text}</a>`;
+      }
+      return `<a href="${href}" class="text-primary hover:underline">${text}</a>`;
+    },
   );
 
   html = html.replace(/^---$/gm, '<hr class="my-8 border-border" />');
@@ -116,7 +170,7 @@ function renderMarkdown(md: string): string {
   );
 
   html = html.replace(
-    /^(?!<[hluo]|<li|<hr|<pre|<blockquote|<a |<strong|<em)(.+)$/gm,
+    /^(?!<[hluo]|<li|<hr|<pre|<blockquote|<a |<strong|<em|<table|<thead|<tbody|<tr|<th|<td)(.+)$/gm,
     (match) => {
       if (match.trim() === "") return "";
       return `<p class="my-4 leading-relaxed">${match}</p>`;
@@ -129,11 +183,25 @@ function renderMarkdown(md: string): string {
 function BlogPostPage() {
   const loaderData = Route.useLoaderData() as unknown as BlogPostLoaderData;
   const { post, error } = loaderData;
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const renderedContent = useMemo(
     () => (post ? renderMarkdown(post.content) : ""),
     [post],
   );
+
+  // Client-side: enrich affiliate links with GCLID/keyword tracking params
+  useEffect(() => {
+    if (!contentRef.current) return;
+    const links = contentRef.current.querySelectorAll<HTMLAnchorElement>(
+      'a[href*="click.dealsncodes.com"]',
+    );
+    links.forEach((link) => {
+      if (link.href.includes("?o=") && !link.href.includes("aff_sub1=")) {
+        link.href = buildAffiliateUrl(AFFILIATE_URL);
+      }
+    });
+  }, [renderedContent]);
 
   if (error || !post) {
     return (
@@ -210,6 +278,7 @@ function BlogPostPage() {
             )}
 
             <div
+              ref={contentRef}
               className="prose prose-lg max-w-none text-muted-foreground"
               dangerouslySetInnerHTML={{ __html: renderedContent }}
             />
