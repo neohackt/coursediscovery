@@ -1,10 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Section, SectionHeader } from "@/components/Section";
 import { fetchAllPosts } from "@/lib/blog/blog.functions";
+import type { BlogPost } from "@/lib/blog/types";
+
+interface BlogLoaderData {
+  posts: BlogPost[];
+  error: string | null;
+}
 
 export const Route = createFileRoute("/blog")({
   head: ({ match }) => ({
@@ -33,18 +37,15 @@ export const Route = createFileRoute("/blog")({
       },
     ],
   }),
+  loader: async () => {
+    const result = await fetchAllPosts();
+    return { posts: result.posts, error: result.error };
+  },
   component: BlogPage,
 });
 
 function BlogPage() {
-  const fetcher = useServerFn(fetchAllPosts);
-  const { data, isLoading } = useQuery({
-    queryKey: ["blog", "all-posts"],
-    queryFn: () => fetcher(),
-    staleTime: 1000 * 60 * 60 * 24,
-  });
-
-  const posts = data?.posts ?? [];
+  const { posts, error } = Route.useLoaderData() as BlogLoaderData;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -57,24 +58,7 @@ function BlogPage() {
             subtitle="Insights on AI learning, course recommendations, and skill development."
           />
 
-          {isLoading ? (
-            <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="animate-pulse rounded-2xl border border-border bg-card/60 overflow-hidden"
-                >
-                  <div className="h-48 bg-muted" />
-                  <div className="p-5 space-y-3">
-                    <div className="h-4 bg-muted rounded w-1/4" />
-                    <div className="h-6 bg-muted rounded w-3/4" />
-                    <div className="h-4 bg-muted rounded w-full" />
-                    <div className="h-4 bg-muted rounded w-2/3" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : posts.length > 0 ? (
+          {posts.length > 0 ? (
             <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
                 <Link
