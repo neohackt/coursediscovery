@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 
 export const Route = createFileRoute("/privacy")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "Privacy Policy | Course Discovery" },
       {
@@ -17,6 +17,16 @@ export const Route = createFileRoute("/privacy")({
         property: "og:description",
         content:
           "CourseDiscovery privacy policy — how we collect, use, and protect your information.",
+      },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
       },
     ],
   }),

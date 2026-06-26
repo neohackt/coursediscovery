@@ -20,22 +20,57 @@ function normalizeCategory(raw: string): string {
   return first || "Other";
 }
 
+// --- In-memory cache (1 hour TTL) ---
+let cachedItems: ImpactCatalogItem[] | null = null;
+let cacheTimestamp = 0;
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
 async function fetchAllCatalogItems(): Promise<ImpactCatalogItem[]> {
+  const now = Date.now();
+  if (cachedItems && now - cacheTimestamp < CACHE_TTL) {
+    return cachedItems;
+  }
+
   const catalogId = getCatalogId();
   const path = `/Mediapartners/${process.env.IMPACT_ACCOUNT_SID}/Catalogs/${catalogId}/Items`;
   const pageSize = 100;
-  const items: ImpactCatalogItem[] = [];
-  let page = 1;
-  while (page <= 20) {
-    const data = await impactRequest<ImpactCatalogResponse>(path, {
-      query: { Page: page, PageSize: pageSize },
-    });
-    if (!data.Items?.length) break;
-    items.push(...data.Items);
-    if (data.Items.length < pageSize) break;
-    page++;
+
+  // Fetch page 1 to get total count
+  const firstPage = await impactRequest<ImpactCatalogResponse>(path, {
+    query: { Page: 1, PageSize: pageSize },
+  });
+  const firstItems = firstPage.Items || [];
+  if (!firstItems.length) {
+    cachedItems = [];
+    cacheTimestamp = now;
+    return [];
   }
-  return items;
+
+  const totalPages = Math.min(
+    parseInt(firstPage["@numpages"] || "1", 10) || 1,
+    20,
+  );
+
+  if (totalPages <= 1) {
+    cachedItems = firstItems;
+    cacheTimestamp = now;
+    return firstItems;
+  }
+
+  // Fetch remaining pages in parallel
+  const remainingPages = Array.from({ length: totalPages - 1 }, (_, i) => i + 2);
+  const results = await Promise.all(
+    remainingPages.map((page) =>
+      impactRequest<ImpactCatalogResponse>(path, {
+        query: { Page: page, PageSize: pageSize },
+      }).then((d) => d.Items || []),
+    ),
+  );
+
+  const allItems = [...firstItems, ...results.flat()];
+  cachedItems = allItems;
+  cacheTimestamp = now;
+  return allItems;
 }
 
 export async function getCatalogProducts(

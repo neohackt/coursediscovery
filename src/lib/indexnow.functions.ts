@@ -3,7 +3,9 @@ import { z } from "zod";
 import { submitToIndexNow, getAllRouteUrls } from "./indexnow.server";
 
 export const submitUrlsToIndexNow = createServerFn({ method: "POST" })
-  .validator(z.object({ urls: z.array(z.string()).optional() }))
+  .inputValidator((input: { urls?: string[] } | undefined) =>
+    z.object({ urls: z.array(z.string()).optional() }).parse(input ?? {}),
+  )
   .handler(async ({ data }) => {
     const urls =
       data.urls && data.urls.length > 0 ? data.urls : getAllRouteUrls();

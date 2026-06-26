@@ -82,14 +82,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { charSet: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "msvalidate.01", content: "3E78A80B02F0DFDDBEC1BE372213B968" },
-        { title: "Lovable App" },
-        { name: "description", content: "Lovable Generated Project" },
-        { name: "author", content: "Lovable" },
-        { property: "og:title", content: "Lovable App" },
-        { property: "og:description", content: "Lovable Generated Project" },
+        { title: "Course Discovery | AI Courses & Deals" },
+        {
+          name: "description",
+          content:
+            "Discover curated AI courses, hand-picked Udemy deals, and learning paths for ChatGPT, prompt engineering, automation and more.",
+        },
+        { property: "og:title", content: "Course Discovery | AI Courses & Deals" },
+        {
+          property: "og:description",
+          content:
+            "Discover curated AI courses, hand-picked Udemy deals, and learning paths for ChatGPT, prompt engineering, automation and more.",
+        },
         { property: "og:type", content: "website" },
-        { name: "twitter:card", content: "summary" },
-        { name: "twitter:site", content: "@Lovable" },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
       links: [
         {

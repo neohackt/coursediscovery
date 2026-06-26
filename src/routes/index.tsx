@@ -13,7 +13,7 @@ import { Footer } from "@/components/Footer";
 import { StickyCTA } from "@/components/StickyCTA";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "Udemy AI Course Discounts 2026 | Up to 85% Off" },
       {
@@ -36,11 +36,17 @@ export const Route = createFileRoute("/")({
           "Verified Udemy AI course discounts updated daily. Save up to 85% on ChatGPT, AI Automation, Prompt Engineering courses. Browse deals now.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "canonical", href: "/" },
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
+      },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",

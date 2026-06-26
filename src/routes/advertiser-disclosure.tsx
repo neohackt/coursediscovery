@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 
 export const Route = createFileRoute("/advertiser-disclosure")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "Advertiser Disclosure | Course Discovery" },
       {
@@ -20,6 +20,16 @@ export const Route = createFileRoute("/advertiser-disclosure")({
         property: "og:description",
         content:
           "CourseDiscovery advertiser disclosure — how advertising and sponsorship relationships work on our site.",
+      },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
       },
     ],
   }),

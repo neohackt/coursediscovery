@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 
 export const Route = createFileRoute("/cookie")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "Cookie Policy | Course Discovery" },
       {
@@ -17,6 +17,16 @@ export const Route = createFileRoute("/cookie")({
         property: "og:description",
         content:
           "CourseDiscovery cookie policy — how we use cookies and similar technologies on our website.",
+      },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
       },
     ],
   }),

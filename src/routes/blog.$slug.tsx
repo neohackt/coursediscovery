@@ -12,7 +12,7 @@ interface BlogPostLoaderData {
 }
 
 export const Route = createFileRoute("/blog/$slug")({
-  head: ({ loaderData }) => {
+  head: ({ loaderData, match }) => {
     const data = loaderData as unknown as BlogPostLoaderData | undefined;
     const post = data?.post;
     return {
@@ -33,6 +33,16 @@ export const Route = createFileRoute("/blog/$slug")({
         {
           property: "og:description",
           content: post?.excerpt ?? "",
+        },
+        {
+          property: "og:url",
+          content: `https://coursediscovery.net${match.pathname}`,
+        },
+      ],
+      links: [
+        {
+          rel: "canonical",
+          href: `https://coursediscovery.net${match.pathname}`,
         },
       ],
     };

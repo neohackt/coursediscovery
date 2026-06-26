@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Section, SectionHeader } from "@/components/Section";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "About CourseDiscovery | Course Discovery" },
       {
@@ -20,6 +20,16 @@ export const Route = createFileRoute("/about")({
         property: "og:description",
         content:
           "CourseDiscovery is an independent learning resource platform helping learners discover high-quality online courses across AI, technology, business, marketing, productivity, and professional development.",
+      },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
       },
     ],
   }),

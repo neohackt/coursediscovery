@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "Contact Us | Course Discovery" },
       {
@@ -17,6 +17,16 @@ export const Route = createFileRoute("/contact")({
         property: "og:description",
         content:
           "Get in touch with CourseDiscovery — questions, feedback, or partnership inquiries.",
+      },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
       },
     ],
   }),

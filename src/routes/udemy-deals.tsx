@@ -1,14 +1,20 @@
 import { useCallback, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Clock, Tag, Copy, Check, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Section, SectionHeader } from "@/components/Section";
 import { AFFILIATE_URL } from "@/lib/constants";
 import { buildAffiliateUrl } from "@/lib/gclid";
+import {
+  getClickCounts,
+  incrementClickCount,
+} from "@/lib/clicks.functions";
 
 export const Route = createFileRoute("/udemy-deals")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       {
         title: "Udemy Coupons 2026: Verified Promo Codes (Up to 85% Off)",
@@ -26,6 +32,16 @@ export const Route = createFileRoute("/udemy-deals")({
         property: "og:description",
         content:
           "Verified Udemy coupons and promo codes on top courses. Save up to 80% off.",
+      },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
       },
     ],
   }),
@@ -141,15 +157,46 @@ const DEALS: Deal[] = [
 
 function UdemyDealsPage() {
   const [filter, setFilter] = useState<"all" | "code" | "deal">("all");
+  const queryClient = useQueryClient();
+
+  const fetchCounts = useServerFn(getClickCounts);
+  const { data: clickCounts } = useQuery({
+    queryKey: ["clicks"],
+    queryFn: () => fetchCounts({}),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const incrementFn = useServerFn(incrementClickCount);
+  const incrementMutation = useMutation({
+    mutationFn: (dealId: string) => incrementFn({ data: dealId }),
+    onMutate: async (dealId) => {
+      await queryClient.cancelQueries({ queryKey: ["clicks"] });
+      const previous = queryClient.getQueryData<Record<string, number>>([
+        "clicks",
+      ]);
+      queryClient.setQueryData<Record<string, number>>(
+        ["clicks"],
+        (old) => ({
+          ...old,
+          [dealId]: (old?.[dealId] ?? 0) + 1,
+        }),
+      );
+      return { previous };
+    },
+    onError: (_err, _dealId, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(["clicks"], context.previous);
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["clicks"] });
+    },
+  });
 
   const visible = useMemo(
     () => DEALS.filter((d) => filter === "all" || d.type === filter),
     [filter],
   );
-
-  const incrementCount = useCallback((_dealId: string) => {
-    // Click tracking will be re-added with server functions
-  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -295,8 +342,12 @@ function UdemyDealsPage() {
               <DealCard
                 key={deal.id}
                 deal={deal}
-                usedToday={deal.usedToday ?? 0}
-                onDealClick={incrementCount}
+                usedToday={
+                  (clickCounts?.[deal.id] ?? 0) > 0
+                    ? clickCounts![deal.id]
+                    : deal.usedToday ?? 0
+                }
+                onDealClick={(id) => incrementMutation.mutate(id)}
               />
             ))}
           </div>

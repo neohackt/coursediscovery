@@ -24,8 +24,15 @@ export function captureFromUrl(): void {
 }
 
 export function buildAffiliateUrl(url: string): string {
-  const gclid = getFromStorage(GCLID_KEY) || "";
-  const keyword = getFromStorage(KEYWORD_KEY) || "";
+  let gclid = getFromStorage(GCLID_KEY) || "";
+  let keyword = getFromStorage(KEYWORD_KEY) || "";
+
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    if (!gclid) gclid = params.get("gclid") || "";
+    if (!keyword) keyword = params.get("keyword") || "";
+  }
+
   return url
     .replace("{gclid}", gclid)
     .replace("{keyword}", keyword)

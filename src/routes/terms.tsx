@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 
 export const Route = createFileRoute("/terms")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "Terms and Conditions | Course Discovery" },
       {
@@ -20,6 +20,16 @@ export const Route = createFileRoute("/terms")({
         property: "og:description",
         content:
           "CourseDiscovery terms and conditions of use — please read before using our website.",
+      },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
       },
     ],
   }),

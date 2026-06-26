@@ -1,15 +1,31 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { fetchCoursesGroupedByCategory } from "@/lib/impact/courses.functions";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Section, SectionHeader } from "@/components/Section";
 import { CourseCard, CourseCardSkeleton } from "@/components/CourseCard";
+import { fetchCoursesGroupedByCategory } from "@/lib/impact/courses.functions";
+
+interface CoursesLoaderData {
+  buckets: {
+    category: string;
+    total: number;
+    courses: {
+      id: string;
+      title: string;
+      description: string;
+      image: string;
+      affiliateUrl: string;
+      category: string;
+      brand?: string;
+      price?: string;
+    }[];
+  }[];
+  error: string | null;
+}
 
 export const Route = createFileRoute("/courses")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "AI Courses by Category | Course Discovery" },
       {
@@ -26,25 +42,33 @@ export const Route = createFileRoute("/courses")({
         content:
           "Browse 100+ AI courses by category — marketing, development, data science & more. Find your next course today.",
       },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
+      },
     ],
   }),
+  loader: async () => {
+    const result = await fetchCoursesGroupedByCategory({ data: { perCategory: 30 } });
+    return { buckets: result.buckets, error: result.error };
+  },
   component: CoursesPage,
 });
 
 const ALL = "All";
 
 function CoursesPage() {
-  const fetcher = useServerFn(fetchCoursesGroupedByCategory);
-  const { data, isLoading } = useQuery({
-    queryKey: ["impact", "courses-grouped"],
-    queryFn: () => fetcher({ data: { perCategory: 30 } }),
-    staleTime: 1000 * 60 * 60 * 24,
-  });
+  const { buckets, error } = Route.useLoaderData() as CoursesLoaderData;
 
   const [active, setActive] = useState<string>(ALL);
 
   const { categories, filtered, totalCourses } = useMemo(() => {
-    const buckets = data?.buckets ?? [];
     const cats = buckets.map((b) => ({
       name: b.category,
       count: b.total,
@@ -56,7 +80,9 @@ function CoursesPage() {
         ? buckets.flatMap((b) => b.courses)
         : (buckets.find((b) => b.category === active)?.courses ?? []);
     return { categories: cats, filtered, totalCourses };
-  }, [data, active]);
+  }, [buckets, active]);
+
+  const isLoading = !buckets && !error;
 
   return (
     <div className="min-h-screen bg-background text-foreground">

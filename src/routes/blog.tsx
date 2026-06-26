@@ -7,7 +7,7 @@ import { Section, SectionHeader } from "@/components/Section";
 import { fetchAllPosts } from "@/lib/blog/blog.functions";
 
 export const Route = createFileRoute("/blog")({
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title: "Blog | Course Discovery" },
       {
@@ -20,6 +20,16 @@ export const Route = createFileRoute("/blog")({
         property: "og:description",
         content:
           "Read the latest articles on AI learning, course recommendations, and skill development tips from CourseDiscovery.",
+      },
+      {
+        property: "og:url",
+        content: `https://coursediscovery.net${match.pathname}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://coursediscovery.net${match.pathname}`,
       },
     ],
   }),
