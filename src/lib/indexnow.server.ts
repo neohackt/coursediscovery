@@ -54,7 +54,6 @@ export function getAllRouteUrls(): string[] {
     `${base}/courses`,
     `${base}/udemy-deals`,
     `${base}/blog`,
-    `${base}/blog/getting-started-with-ai-2026`,
     `${base}/blog/best-udemy-ai-courses`,
     `${base}/about`,
     `${base}/privacy`,
