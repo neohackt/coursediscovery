@@ -74,7 +74,8 @@ export function Footer() {
             affiliate links, at no extra cost to you.
           </p>
           <p className="mt-2">
-            © {currentYear} Course Discovery. All rights reserved.
+            © {currentYear} Course Discovery. All rights reserved. | Designed
+            & Developed by Whiz Adsbay LLP
           </p>
         </div>
       </div>
