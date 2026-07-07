@@ -517,70 +517,56 @@ function UdemyDealsPage() {
             </h2>
 
             <div className="mb-4">
-              <h3 className="font-medium">Do Udemy coupons expire?</h3>
+              <h3 className="font-medium">Is there a Udemy sale right now?</h3>
               <p className="text-muted-foreground">
-                Yes. Most Udemy coupon codes are valid for a few days to two
-                weeks. We update this page regularly and remove expired codes —
-                but if a code fails at checkout, the course is very likely still
-                on sale at a similar price; just proceed without the code.
+                We check Udemy's pricing daily and list active sales and coupon
+                codes on this page as soon as they go live. Check the "Last
+                verified" date above for the most recent update.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <h3 className="font-medium">When is the next Udemy sale?</h3>
+              <p className="text-muted-foreground">
+                Udemy runs sitewide promotions frequently, often multiple times
+                a month, alongside seasonal events like Black Friday and New
+                Year. We track upcoming sale windows here and update this page
+                as new ones are announced.
               </p>
             </div>
 
             <div className="mb-4">
               <h3 className="font-medium">
-                Can I stack multiple Udemy coupons?
+                How low do Udemy course prices drop during a sale?
               </h3>
               <p className="text-muted-foreground">
-                No. Udemy applies one discount code per purchase. If a course is
-                already on sale, applying a different code may not lower the
-                price further.
+                During sitewide sales, most paid courses drop to a fraction of
+                their list price, commonly landing in the $9.99 to $14.99 range
+                regardless of the course's normal price.
               </p>
             </div>
 
             <div className="mb-4">
               <h3 className="font-medium">
-                Is the Udemy Personal Plan worth it over individual courses?
+                Are Udemy coupon codes still valid?
               </h3>
               <p className="text-muted-foreground">
-                If you plan to take 3 or more courses a year, the subscription
-                plan often costs less than buying each course individually at
-                sale price. For one or two courses, per-course purchases with a
-                coupon are usually cheaper.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h3 className="font-medium">
-                Why does the price change between when I click and when I check
-                out?
-              </h3>
-              <p className="text-muted-foreground">
-                Udemy prices can shift based on region, login status, and active
-                promotions. The price shown when you click "Get Deal" reflects
-                the offer at that moment — always confirm the final price at
-                checkout before paying.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h3 className="font-medium">
-                Are these coupons valid worldwide?
-              </h3>
-              <p className="text-muted-foreground">
-                Most Udemy promotions apply globally, though Udemy does adjust
-                pricing by region (purchasing power parity). The percentage
-                discount usually still applies regardless of your country.
+                Udemy coupon codes are typically time-limited and tied to
+                specific courses or instructor promotions. We remove expired
+                codes and only list ones we've confirmed are working as of our
+                last update.
               </p>
             </div>
 
             <div>
               <h3 className="font-medium">
-                Do coupons work on courses already in my cart?
+                Do Udemy deals apply to all courses?
               </h3>
               <p className="text-muted-foreground">
-                Yes, as long as the code is applied before completing checkout.
-                Adding a course to your cart doesn't lock in a price until
-                payment.
+                Most paid courses are included in sitewide sales, but some
+                instructor-run courses, subscriptions, and already-discounted
+                courses may be excluded. We note any major exclusions when they
+                apply.
               </p>
             </div>
           </section>
