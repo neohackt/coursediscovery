@@ -14,37 +14,42 @@ import {
 } from "@/lib/clicks.functions";
 
 export const Route = createFileRoute("/udemy-deals")({
-  head: ({ match }) => ({
-    meta: [
-      {
-        title: "Udemy Coupons 2026: Verified Promo Codes (Up to 85% Off)",
-      },
-      {
-        name: "description",
-        content:
-          "Save on Udemy courses with hand-picked coupon codes and promo deals. Verified offers on AI, programming, business and design courses — updated regularly.",
-      },
-      {
-        property: "og:title",
-        content: "Udemy Coupons 2026: Verified Promo Codes (Up to 85% Off)",
-      },
-      {
-        property: "og:description",
-        content:
-          "Verified Udemy coupons and promo codes on top courses. Save up to 80% off.",
-      },
-      {
-        property: "og:url",
-        content: `https://coursediscovery.net${match.pathname}`,
-      },
-    ],
-    links: [
-      {
-        rel: "canonical",
-        href: `https://coursediscovery.net${match.pathname}`,
-      },
-    ],
-  }),
+  head: ({ match }) => {
+    const now = new Date();
+    const monthYear = `${now.toLocaleDateString("en-US", { month: "long" })} ${now.getFullYear()}`;
+    const metaTitle = `Udemy Deals & Coupon Codes – Updated ${monthYear} | CourseDiscovery`;
+    const metaDescription =
+      "Live Udemy deals, coupon codes & sale alerts — verified today. See current course prices, when the next Udemy sale starts, and how to save before it ends.";
+    return {
+      meta: [
+        {
+          title: metaTitle,
+        },
+        {
+          name: "description",
+          content: metaDescription,
+        },
+        {
+          property: "og:title",
+          content: metaTitle,
+        },
+        {
+          property: "og:description",
+          content: metaDescription,
+        },
+        {
+          property: "og:url",
+          content: `https://coursediscovery.net${match.pathname}`,
+        },
+      ],
+      links: [
+        {
+          rel: "canonical",
+          href: `https://coursediscovery.net${match.pathname}`,
+        },
+      ],
+    };
+  },
   component: UdemyDealsPage,
 });
 
