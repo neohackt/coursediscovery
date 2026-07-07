@@ -48,6 +48,57 @@ export const Route = createFileRoute("/udemy-deals")({
           href: `https://coursediscovery.net${match.pathname}`,
         },
       ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          innerHTML: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Is there a Udemy sale right now?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "We check Udemy's pricing daily and list active sales and coupon codes on this page as soon as they go live. Check the 'Last verified' date above for the most recent update.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "When is the next Udemy sale?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Udemy runs sitewide promotions frequently, often multiple times a month, alongside seasonal events like Black Friday and New Year. We track upcoming sale windows here and update this page as new ones are announced.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How low do Udemy course prices drop during a sale?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "During sitewide sales, most paid courses drop to a fraction of their list price, commonly landing in the $9.99 to $14.99 range regardless of the course's normal price.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Are Udemy coupon codes still valid?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Udemy coupon codes are typically time-limited and tied to specific courses or instructor promotions. We remove expired codes and only list ones we've confirmed are working as of our last update.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Do Udemy deals apply to all courses?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Most paid courses are included in sitewide sales, but some instructor-run courses, subscriptions, and already-discounted courses may be excluded. We note any major exclusions when they apply.",
+                },
+              },
+            ],
+          }),
+        },
+      ],
     };
   },
   component: UdemyDealsPage,
