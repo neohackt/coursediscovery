@@ -170,7 +170,7 @@ function renderMarkdown(md: string): string {
   );
 
   html = html.replace(
-    /^(?!<[hluo]|<li|<hr|<pre|<blockquote|<a |<strong|<em|<table|<thead|<tbody|<tr|<th|<td)(.+)$/gm,
+    /^(?!<[hluo]|<li|<hr|<pre|<blockquote|<a |<table|<thead|<tbody|<tr|<th|<td)(.+)$/gm,
     (match) => {
       if (match.trim() === "") return "<br />";
       return `<p class="my-4 leading-relaxed">${match}</p>`;
