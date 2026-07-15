@@ -27,20 +27,20 @@ interface CoursesLoaderData {
 export const Route = createFileRoute("/courses")({
   head: ({ match }) => ({
     meta: [
-      { title: "AI Courses by Category | Course Discovery" },
+      { title: "Best Udemy Courses 2026 – Browse Top-Rated Courses by Category" },
       {
         name: "description",
         content:
-          "Browse 100+ AI courses by category — marketing, development, data science & more. Find your next course today.",
+          "Compare top-rated Udemy courses in AI, marketing, data, design & more. Real ratings, current prices, and verified deals — updated for 2026. Find your course.",
       },
       {
         property: "og:title",
-        content: "AI Courses by Category | Course Discovery",
+        content: "Best Udemy Courses 2026 – Browse Top-Rated Courses by Category",
       },
       {
         property: "og:description",
         content:
-          "Browse 100+ AI courses by category — marketing, development, data science & more. Find your next course today.",
+          "Compare top-rated Udemy courses in AI, marketing, data, design & more. Real ratings, current prices, and verified deals — updated for 2026. Find your course.",
       },
       {
         property: "og:url",
